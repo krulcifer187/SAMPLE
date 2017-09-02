@@ -1,0 +1,17 @@
+﻿@model MvcApplication2.Models.Books
+
+@using (Html.BeginForm("SaveBook", "Admin"))
+{
+    @Html.LabelFor(bb=>bb.bookID)
+    @Html.EditorFor(bb => bb.bookID)
+    <br />
+    @Html.LabelFor(bb => bb.title)
+    @Html.EditorFor(bb => bb.title)
+    <br />
+    @Html.LabelFor(bb => bb.author)
+    @Html.EditorFor(bb => bb.author)
+  <br />
+    <button type="submit">Edit</button>
+    <br />
+    @Html.ActionLink("<----  Go Back", "Books")
+}

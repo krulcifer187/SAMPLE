@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MvcApplication2.Models.Books>
+@{
+    ViewBag.Title = "Books";
+}
+
+@Html.ActionLink("Add", "AddBook")
+@foreach (var item in Model)
+{
+    <br />
+    <br />
+    @Html.DisplayFor(a => item.bookID);
+                                      <br />
+    @Html.DisplayFor(a => item.title);
+                                     <br />
+    @Html.DisplayFor(a => item.author);
+    <br />
+    
+    @Html.ActionLink("Edit","EditBook", new { bookID = item.bookID })
+        <br />
+    @Html.ActionLink("Delete", "DeleteBook", new { id= item.bookID })                                                                                       
+}
+<br />
+ @Html.ActionLink("<---- Go Back", "toHomePage") 
