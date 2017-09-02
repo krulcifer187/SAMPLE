@@ -17,8 +17,8 @@ namespace MvcApplication2.Utils
                 var book = db.Books.FirstOrDefault(x => x.id == acc.bookID);
                 if (book != null)
                 {
-                    book.author = acc.author;
-                    book.title = acc.title;
+                    book.BookAuthor = acc.author;
+                    book.BookTitle = acc.title;
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace MvcApplication2.Utils
                 if (id != 0)
                 {
                     var a = db.Books.Where(i => i.id == id);
-                    return a.Select(b => new Book { bookID = b.id, author = b.author, title = b.title }).ToList();
+                    return a.Select(b => new Book { bookID = b.id, author = b.BookAuthor, title = b.BookAuthor }).ToList();
                 }
                 else
                 {

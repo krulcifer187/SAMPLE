@@ -8,15 +8,15 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
-
 namespace MvcApplication2.Entity
 {
     #region Contexts
@@ -207,13 +207,9 @@ namespace MvcApplication2.Entity
         #endregion
 
 
-
-        public string author { get; set; }
-
-        public string title { get; set; }
     }
 
     #endregion
 
-    
+
 }
