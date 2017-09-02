@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcApplication2.Models;
+using MvcApplication2.Entity;
 
 namespace MvcApplication2.Controllers
 {
     public class BooksController : Controller
     {
+        private string title;
    
 
         public ActionResult AddBook()
@@ -26,9 +28,10 @@ namespace MvcApplication2.Controllers
             }
             return RedirectToAction("Books");
         }
-        public ActionResult SaveBook(Books bb)
+        public static void SaveBook(Books bb)
         {
-            var selected = BooksInfo.Con.Book.FirstOrDefault(x => x.bookID == bb.bookID);
+         using (var db = new MyDatabaseEntities()){
+            var selected = db.Books.FirstOrDefault(x => x.bookID == bb.bookID);
             if (selected != null)
             {
                 selected.title = bb.title;
@@ -36,10 +39,11 @@ namespace MvcApplication2.Controllers
             }
             else
             {
-                bb.bookID = BooksInfo.Con.NextId();
-                BooksInfo.Con.Book.Add(bb);
+                db.Books.AddObject(new Entity.Book{title = bb.title,author=bb.author});
+
             }
-            return RedirectToAction("Books");
+                db.SaveChanges();
+            }
         }
         public ActionResult Books()
         {
