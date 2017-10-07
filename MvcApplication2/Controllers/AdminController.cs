@@ -48,8 +48,6 @@ namespace MvcApplication2.Controllers
         public ActionResult Edit(Account acc)
         {
             
-         
-
             return View(Information.Context.Accounts.FirstOrDefault(x => x.Id == acc.Id));
         }
         public ActionResult Delete(int id)

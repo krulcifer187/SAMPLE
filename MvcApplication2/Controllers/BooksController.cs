@@ -4,18 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcApplication2.Models;
-using MvcApplication2.Entity;
 
 namespace MvcApplication2.Controllers
 {
     public class BooksController : Controller
     {
-        private string title;
-   
-
-        public ActionResult AddBook()
+        public ActionResult Index(string search = "", string BookID = "")
         {
+
             return View();
+        }
+        public ActionResult AddBook(Books bb)
+        {
+            SaveBook(bb);
+            if (bb.author!= null)
+            {
+                return RedirectToAction("Books");
+
+            }
+            return View();
+        }
+        public ActionResult EditBook(Books bb)
+        {
+
+            return View(BooksInfo.Con.Book.FirstOrDefault(x => x.bookID == bb.bookID));
         }
         public ActionResult DeleteBook(int id)
         {
@@ -28,33 +40,29 @@ namespace MvcApplication2.Controllers
             }
             return RedirectToAction("Books");
         }
-        public static void SaveBook(Books bb)
+        public ActionResult SaveBook(Books bb)
         {
-         using (var db = new MyDatabaseEntities()){
-            var selected = db.Books.FirstOrDefault(x => x.bookID == bb.bookID);
+            var selected = BooksInfo.Con.Book.FirstOrDefault(x => bb.bookID == bb.bookID);
             if (selected != null)
             {
                 selected.title = bb.title;
                 selected.author = bb.author;
+                selected.bookID = bb.bookID;
             }
             else
             {
-                db.Books.AddObject(new Entity.Book{title = bb.title,author=bb.author});
+                bb.bookID = BooksInfo.Con.NextId();
+                BooksInfo.Con.Book.Add(bb);
 
             }
-                db.SaveChanges();
-            }
+            return RedirectToAction("Books");
+
         }
         public ActionResult Books()
         {
             return View(BooksInfo.Con.Book);
         }
-        public ActionResult EditBook(Books bb)
-        {
-
-            return View(BooksInfo.Con.Book.FirstOrDefault(x => x.bookID == bb.bookID));
-        }
-
+    
         public ActionResult toHomePage()
         {
             return RedirectToAction("HomePage", "Home");

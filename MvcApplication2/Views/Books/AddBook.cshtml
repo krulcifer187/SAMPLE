@@ -1,7 +1,7 @@
 ﻿@model MvcApplication2.Models.Books
 
 
-@using (Html.BeginForm("SaveBook", "Admin"))
+@using (Html.BeginForm("SaveBook", "Books"))
 {
     @Html.LabelFor(bb=>bb.bookID)
     @Html.EditorFor(bb => bb.bookID)
